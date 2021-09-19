@@ -8,3 +8,4 @@ cghooks-temp-*
 
 #PHP Doc
 ./docs/*
+.phpdoc/*
