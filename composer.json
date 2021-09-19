@@ -1,0 +1,63 @@
+{
+    "name": "stepsarras/php_git_hooks",
+    "description": "A small project to handle php hooks",
+	"require-dev": {
+        "friendsofphp/php-cs-fixer": "3.1",
+        "phpunit/phpunit": "^9.5",
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "phpstan/phpstan": "^0.12.99"
+    },
+    "authors": [
+        {
+            "name": "Stefanos Psarras",
+            "email": "stepsarras@gmail.com"
+        }
+    ],
+	"autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+		"post-update-cmd": "cghooks update",
+        "php-doc": [
+             "bin/phpDocumentor --config=phpdoc.xml"
+         ],
+         "php-cs-fix": [
+             "vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php --dry-run"
+         ],
+         "php-cs-fix-hard": [
+             "vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php"
+         ],
+         "php-cs-fix-file": [
+             "vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php --dry-run --diff -v"
+         ],
+		 "phpstan": [
+			"vendor/bin/phpstan -cphpstan.neon"
+		 ]
+     },
+     "extra": {
+         "hooks": {
+             "config": {
+                 "stop-on-failure": ["pre-push"]
+             },
+             "pre-commit": [
+                 "echo committing as $(git config user.name)",
+				 "composer php-cs-fix ./src"
+             ],
+             "pre-push": [
+                 "composer php-cs-fix ./src",
+				 "composer phpstan"
+             ],
+             "post-merge": [
+				"composer update",
+				"composer php-doc"
+			 ]
+         }
+     }
+}
