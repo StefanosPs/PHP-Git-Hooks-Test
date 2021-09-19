@@ -1,7 +1,10 @@
 /vendor/
 /.idea/
+
+#Lock Files
 /test-git-dir/
 cghooks-temp-*
-.php_cs.cache
-phpunit.xml
-cghooks.lock
+*.lock
+
+#PHP Doc
+./docs/*
