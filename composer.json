@@ -26,7 +26,7 @@
     "scripts": {
 		"post-update-cmd": "cghooks update",
         "php-doc": [
-             "bin/phpDocumentor --config=phpdoc.xml"
+             "./bin/phpDocumentor.phar --config=phpdoc.xml"
          ],
          "php-cs-fix": [
              "vendor/bin/php-cs-fixer fix --config=php-cs-fixer.php --dry-run"
